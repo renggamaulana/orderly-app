@@ -12,7 +12,6 @@ import { useState } from 'react';
 import Header from '@/components/Header';
 export default function Home() {
 
-
   const menus:any[]= [
     {
       name: "Ayam Bakar",
@@ -68,18 +67,18 @@ export default function Home() {
       <Tab categories={categories}
       selectedCategory={selectedCategory}
       onSelectCategory={setSelectedCategory}/>
-      <div className="relative h-dvh rounded-t-xl mt-24 bg-gradient-to-r from-indigo-500 to-indigo-800">
+      <div className="relative h-dvh rounded-t-3xl mt-24 bg-gradient-to-r from-indigo-500 to-indigo-800">
         <div className="relative top-[-80px]">
-          <div className="grid grid-cols-2 gap-2 p-5">
+          <div className="grid grid-cols-2 gap-2 p-3">
             {filteredMenus.map((menu:any) => (
               // Card
-              <div key={menu.name} className="shadow rounded bg-white p-3 mt-2 relative">
+              <div key={menu.name} className="shadow rounded-lg bg-white p-3 mt-2 relative">
                   <Image  src={menu.image} className="w-56 h-36 object-cover" alt="" />
                   <h3 className="text-lg font-semibold text-neutral-700 mt-4">{menu.name}</h3>
-                  <div className="absolute top-3 left-3 bg-red-600 opacity-70">
-                    <p className="text-white px-2 font-semibold">Rp {menu.price}K</p>
+                  <div className="absolute top-3 left-3 bg-red-600 opacity-80">
+                    <p className="text-white px-2 font-semibold">{menu.price}K</p>
                   </div>
-                  <button className="bg-indigo-500 rounded-md px-3 py-1 text-white font-semibold">Tambah</button>
+                  <button className="border border-indigo-500 rounded-2xl px-3 py-1 text-indigo-500 font-semibold text-sm hover:bg-indigo-500 hover:duration-400 hover:transition-colors hover:text-white">Tambah</button>
               </div>
             ))}
           </div>
