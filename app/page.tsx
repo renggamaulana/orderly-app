@@ -1,101 +1,91 @@
-import Image from "next/image";
-
+"use client";
+import Card from '@/components/Card';
+import Tab from '../components/Tab';
+import Image from 'next/image';
+import ayamBakar from '../public/images/nasi-ayam-bakar.jpg'
+import ayamGoreng from '../public/images/ayam-goreng.jpg'
+import nasiGoreng from '../public/images/nasi-goreng.jpg'
+import mieGoreng from '../public/images/mie-tektek.jpg'
+import airMineral from '../public/images/air-mineral.jpg'
+import tehManis from '../public/images/teh-manis.jpg'
+import { useState } from 'react';
+import Header from '@/components/Header';
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+
+  const menus:any[]= [
+    {
+      name: "Ayam Bakar",
+      price: 20,
+      description: "Ayam Bakar dengan nasi hangat dan sambal",
+      image: ayamBakar,
+      category: 'Makanan'
+    },
+    {
+      name: "Ayam Goreng",
+      price: 20,
+      description: "Ayam Goreng dengan nasi hangat dan sambal",
+      image: ayamGoreng,
+      category: 'Makanan'
+    },
+    {
+      name: "Nasi Goreng",
+      price: 15,
+      description: "Nasi goreng spesial dengan telur dan acar",
+      image: nasiGoreng,
+      category: 'Makanan'
+    },
+    {
+      name: "Mie Goreng",
+      price: 15,
+      description: "Mie goreng spesial dengan telur dan acar",
+      image: mieGoreng,
+      category: 'Makanan'
+    },
+    {
+      name: "Teh Manis",
+      price: 5,
+      description: "Tah manis segar",
+      image: tehManis,
+      category: 'Minuman'
+    },
+    {
+      name: "Air Mineral",
+      price: 5,
+      description: "Air mineral",
+      image: airMineral,
+      category: 'Minuman'
+    },
+  ];
+  const [selectedCategory, setSelectedCategory] = useState<string>("Makanan");
+
+  const categories = ["Makanan", "Minuman"];
+  const filteredMenus = menus.filter((menu) => menu.category === selectedCategory);
+
+  return (
+    <div className="bg-neutral-200 h-screen">
+      <Header/>
+      <Tab categories={categories}
+      selectedCategory={selectedCategory}
+      onSelectCategory={setSelectedCategory}/>
+      <div className="relative h-dvh rounded-t-xl mt-24 bg-gradient-to-r from-indigo-500 to-indigo-800">
+        <div className="relative top-[-80px]">
+          <div className="grid grid-cols-2 gap-2 p-5">
+            {filteredMenus.map((menu:any) => (
+              // Card
+              <div key={menu.name} className="shadow rounded bg-white p-3 mt-2 relative">
+                  <Image  src={menu.image} className="w-56 h-36 object-cover" alt="" />
+                  <h3 className="text-lg font-semibold text-neutral-700 mt-4">{menu.name}</h3>
+                  <div className="absolute top-3 left-3 bg-red-600 opacity-70">
+                    <p className="text-white px-2 font-semibold">Rp {menu.price}K</p>
+                  </div>
+                  <button className="bg-indigo-500 rounded-md px-3 py-1 text-white font-semibold">Tambah</button>
+              </div>
+            ))}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+      </div>
     </div>
   );
 }
